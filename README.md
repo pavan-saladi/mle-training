@@ -14,5 +14,5 @@ The following techniques have been used:
  - Multiple sampling techinuqies are evaluated. The data set is split into train and test.
  - All the above said modelling techniques are tried and evaluated. The final metric used to evaluate is mean squared error.
 
-## To excute the script
+## To execute the script
 python nonstandardcode.py
