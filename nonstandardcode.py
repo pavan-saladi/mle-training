@@ -1,3 +1,6 @@
+import os
+import tarfile
+
 import numpy as np
 import pandas as pd
 import os
@@ -15,6 +18,20 @@ from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import randint
 from sklearn.model_selection import GridSearchCV
 
+# from six.moves import urllib
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import GridSearchCV
+
+from scipy.stats import randint
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import RandomizedSearchCV
+
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
+from sklearn.tree import DecisionTreeRegressor
 
 DOWNLOAD_ROOT = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
 HOUSING_PATH = os.path.join("datasets", "housing")
@@ -35,6 +52,7 @@ def load_housing_data(housing_path=HOUSING_PATH):
     return pd.read_csv(csv_path)
 
 
+
 # data_download = fetch_housing_data() -- Uncomment this line when running the .py file as it is required for downloading the data.
 
 housing = load_housing_data()
@@ -45,6 +63,7 @@ train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 housing["income_cat"] = pd.cut(housing["median_income"],
                                bins=[0., 1.5, 3.0, 4.5, 6., np.inf],
                                labels=[1, 2, 3, 4, 5])
+
 
 split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
 for train_index, test_index in split.split(housing, housing["income_cat"]):
@@ -100,6 +119,7 @@ lin_rmse
 
 lin_mae = mean_absolute_error(housing_labels, housing_predictions)
 lin_mae
+
 
 tree_reg = DecisionTreeRegressor(random_state=42)
 tree_reg.fit(housing_prepared, housing_labels)
